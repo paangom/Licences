@@ -1,0 +1,87 @@
+
+#top {
+    position: relative;
+    background-image: url(../imgs/entete-transp.png);
+    background-repeat: no-repeat;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+    height: 150px;
+}
+
+#bottom {
+    position: relative;
+    bottom: 0;
+    background-color: #c2dfef;
+    height: 70px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+#content{
+    min-height: 850px;
+    margin-bottom: 5px;
+}
+
+#left {
+    float: left;
+    padding: 15px;
+    padding-left: 0;
+    padding-top: 0;
+    width: 200px;
+}
+
+#right {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+.center_content {
+    position: relative;
+    background-color: #dddddd;
+    padding: 5px;
+}
+
+.left_content {
+    background-color: #ffffff;
+    padding: 5px;
+    margin-left: 220px;
+}
+
+.center_content {
+    background-color: #ffffff;
+    padding: 5px;
+}
+
+.right_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+}
+
+#top a:link, #top a:visited {
+  color: white;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+#top a:link:hover, #top a:visited:hover  {
+  color: black;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+#page {
+  padding: 10px 0px;
+  min-height: 100%;
+  height: auto;
+}
+
+input:disabled{
+    color: #000000;
+    background-color: #ffffff;
+}
+

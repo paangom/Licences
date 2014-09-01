@@ -1,0 +1,50 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6 mars 2014, 19:09:56
+    Author     : sambasow
+*/
+
+
+.search{
+    width: 100%;
+    background-color: #dddddd;
+    margin-bottom: 20px;
+}
+
+.title {
+    height: 30px;
+    margin-bottom: 3px;
+    padding: 8px 0 0 20px;
+}
+
+.profil{
+    color: #c2dfef;
+    margin-top: 15px;
+}
+
+.footer{
+    margin-top: 30px;
+    color: #c2dfef;
+}
+
+.breadcrumb{
+    margin-bottom: 15px;
+}
+
+.panContent{
+    width: 100%;
+    margin-top: 10px;
+    color: #000000;
+}
+.icon-acte{
+    background-image: url(../imgs/icons/login.png);
+}
+
+.addDec{
+    padding-left: 10px;
+    margin-bottom: 15px;
+}

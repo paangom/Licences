@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    	<link rel="shortcut icon" href="/home.png" type="image/x-icon"/>
+		<link rel="icon" href="/home.png" type="image/x-icon"/>
+        <title>Accueil</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="contenu">
+                       
+                        <br />
+                        <br />
+                        <br />
+                    
+                    <div class="contenu">
+                        <div align="center">
+			                <h:panelGrid columns="1" cellpadding="5" style="width: 100%">
+			                	<p:panel header="LISTE DES CENTRE D'ETAT CIVIL" style="width:100%">
+			                		 <h:form id="formDataTable">
+			                		<p:growl id="growl" sticky="true" />
+			                    	<div align="left">
+			                        <p:commandButton id="btnCentreCreate" update=":formCreate" oncomplete="centreDialogCreate.show()" icon="ui-icon-plus" title="Ajout d'un nouveau centre"/> 
+			                    	</div>
+			                   
+			                      
+			                            
+			                            <p:dataTable id="centres" var="center" value="#{generateur.centre}" style="width: 100%"  paginator="true" rows="10"  
+			                                          
+			                                         rowsPerPageTemplate="5,10,15">  
+			
+											<p:column headerText="Région" style="text-align: center; ">  
+			                                    <h:outputText value="#{center.centerRegion}" />  
+			                                </p:column>  
+			
+			                                <p:column headerText="Département" style="text-align: center;">  
+			                                    <h:outputText value="#{center.centerDepartement}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Arrondissement" style="text-align: center;">  
+			                                    <h:outputText value="#{center.centerArrondissement}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Circonscription" style="text-align: center;">  
+			                                    <h:outputText value="#{center.centerCollectivite}" />  
+			                                </p:column> 
+			                                
+			                                <p:column headerText="Commune" style="text-align: center;">  
+			                                    <h:outputText value="#{center.commune}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Type" style="text-align: center;">  
+			                                    <h:outputText value="#{center.centerType}" />  
+			                                </p:column>   
+			
+			                                <p:column headerText="Principal" style="text-align: center;">  
+			                                    <h:outputText value="#{center.mainCenter}" />  
+			                                </p:column>
+			                                
+			                                <p:column headerText="Code" style="text-align: center;">  
+			                                    <h:outputText value="#{center.centerCode}" />  
+			                                </p:column> 
+			
+			                                
+			                                <p:column style="width:8px; text-align: center;">
+			                                        
+			                                        <p:commandButton id="btnUpdateCentre"  update=":formUpdateCentre" oncomplete="centreDialogUpdate.show()" icon="ui-icon-pencil" title="Modifier centre">  
+			                                            <f:setPropertyActionListener value="#{center}" target="#{generateur.selectCenter}" />  
+			                                        </p:commandButton>
+			                                    
+			                                </p:column>
+			                                
+			                                <p:column style="width:8px; text-align: center;">
+			                                        
+			                                        <p:commandButton id="btnShowCentre"  update=":formShowCentre" oncomplete="centreDialogShow.show()" icon="ui-icon-info" title="Affichage détails du centre">  
+			                                            <f:setPropertyActionListener value="#{center}" target="#{generateur.selectCenter}" /> 
+			                                        </p:commandButton>
+			                                    
+			                                </p:column>
+			                                
+			                                  
+			
+			                            </p:dataTable>
+			                        </h:form>
+			 
+			                        <h:form id="formCreate">
+			                            <p:dialog header="Ajout d'un nouveau centre" widgetVar="centreDialogCreate" resizable="false" id="centreDlgCreate"  
+			                                      showEffect="fade" hideEffect="explode" modal="true">  
+			
+			                                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">   
+			
+			                                    <h:outputText value="Region : " />  
+			                                    <p:inputText value="#{generateur.addCentre.centerRegion}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Département : " />  
+			                                    <p:inputText value="#{generateur.addCentre.centerDepartement}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Arrondissement : " />  
+			                                    <p:inputText value="#{generateur.addCentre.centerArrondissement}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Circonscription : " />  
+			                                    <p:inputText value="#{generateur.addCentre.centerCollectivite}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Commune : " />  
+			                                    <p:inputText value="#{generateur.addCentre.commune}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Centre d'Etat Civil : " />  
+			                                    <p:inputText value="#{generateur.addCentre.centerName}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Type de centre : " />  
+			                                    <p:inputText value="#{generateur.addCentre.centerType}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Principal : " />  
+			                                    <p:inputText value="#{generateur.addCentre.mainCenter}"  />
+			                                    
+			                                    <h:outputText value="Code : " />  
+			                                    <p:inputMask value="#{generateur.addCentre.centerCode}" mask="999" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Date Installation : " />  
+			                                    <p:calendar effect="fadeIn" navigator="true" placeholder="Date d'installation" title="Date d'installation" required="true" value="#{generateur.dateInstall}" maxdate="calwidget.today()" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+			                                    
+			                                    <h:outputText value="Adresse : " />  
+			                                    <p:inputText value="#{generateur.addCentre.centerAddress}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Téléphone : " />  
+			                                    <p:inputMask mask="(+221) 99 999 99 99" value="#{generateur.addCentre.centerPhone}" />
+			                                    
+			                                    <h:outputText value="E-mail : " />  
+			                                    <p:inputText value="#{generateur.addCentre.centerMail}" />
+			                                    
+			                                    <f:facet name="footer">
+			                                        <p:separator/>
+			                                        <p:commandButton id="btnCreateOK" update=":formDataTable:centres, :formDataTable:growl" action="#{generateur.createCenter}" ajax="true" oncomplete="centreDialogCreate.hide()" icon="ui-icon-disk" title="Sauvegarder" value="Sauver"/> 
+			                                        <p:commandButton id="btnCreateCancel" oncomplete="centerDialogCreate.hide()" icon="ui-icon-closethick" title="Annuler" value="Annuler"/> 
+			                                    </f:facet>
+			                                </h:panelGrid>  
+			
+			                            </p:dialog>  
+			
+			                        </h:form>   
+			                        <h:form id="formUpdateCentre">
+			                            <p:dialog header="Modification du centre" widgetVar="centreDialogUpdate" resizable="false" id="centreDlgUpdate"  
+			                                      showEffect="fade" hideEffect="explode" modal="true">  
+			
+			                                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+			
+			                                    <h:outputText value="Region : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.centerRegion}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Département : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.centerDepartement}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Arrondissement : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.centerArrondissement}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Circonscription : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.centerCollectivite}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Commune : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.commune}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Centre d'Etat Civil : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.centerName}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Type de centre : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.centerType}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Principal : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.mainCenter}"  />
+			                                    
+			                                    <h:outputText value="Code : " />  
+			                                    <p:inputMask value="#{generateur.selectCenter.centerCode}" mask="999" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Date Installation : " /> 
+			                                    <p:inputMask mask="99/99/9999" value="#{generateur.selectCenter.date_Install}" required="true" requiredMessage="Veuillez saisir le code du centre"></p:inputMask> 
+			                                    
+			                                    <h:outputText value="Adresse : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.centerAddress}" required="true" requiredMessage="Champ obligatoire"/>
+			                                    
+			                                    <h:outputText value="Téléphone : " />  
+			                                    <p:inputMask mask="(+221) 99 999 99 99" value="#{generateur.selectCenter.centerPhone}" />
+			                                    
+			                                    <h:outputText value="E-mail : " />  
+			                                    <p:inputText value="#{generateur.selectCenter.centerMail}" />  
+			
+			                                    <f:facet name="footer">
+			                                        <p:separator/>
+			                                        <p:commandButton id="btnUpdateeOK" update=":formDataTable:centres, :formDataTable:growl" action="#{generateur.updateCenter}" oncomplete="centreDialogUpdate.hide()" icon="ui-icon-disk" title="Sauvegarder" value="Sauver"/> 
+			                                        <p:commandButton id="btnUpdateCancel" oncomplete="centreDialogUpdate.hide()" icon="ui-icon-closethick" title="Annuler" value="Annuler"/> 
+			                                    </f:facet>
+			                                </h:panelGrid>  
+			
+			                            </p:dialog>  
+			
+			                        </h:form>  
+			
+			                        <h:form id="formShowCentre">
+			                            <p:dialog header="Détails du centre" widgetVar="centreDialogShow" resizable="false" id="centreDlgShow"  
+			                                      showEffect="fade" hideEffect="explode" modal="true">  
+			
+			                                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+			
+			                                    <h:outputText value="Region : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerRegion}" />
+			                                    
+			                                    <h:outputText value="Département : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerDepartement}" />
+			                                    
+			                                    <h:outputText value="Arrondissement : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerArrondissement}" />
+			                                    
+			                                    <h:outputText value="Circonscription : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerCollectivite}" />
+			                                    
+			                                    <h:outputText value="Commune : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.commune}" />
+			                                    
+			                                    <h:outputText value="Centre d'Etat Civil : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerName}" />
+			                                    
+			                                    <h:outputText value="Type de centre : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerType}" />
+			                                    
+			                                    <h:outputText value="Principal : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.mainCenter}"  />
+			                                    
+			                                    <h:outputText value="Code : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerCode}" />
+			                                    
+			                                    <h:outputText value="Date Installation : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.date_Install}" />
+			                                    
+			                                    <h:outputText value="Adresse : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerAddress}" />
+			                                    
+			                                    <h:outputText value="Téléphone : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerPhone}" />
+			                                    
+			                                    <h:outputText value="E-mail : " />  
+			                                    <h:outputLabel value="#{generateur.selectCenter.centerMail}" />  
+			
+			                                    <f:facet name="footer">
+			                                        <p:separator/>
+			                                        <div align="center">
+			                                        <p:commandButton id="btnUpdateCancel" oncomplete="centreDialogShow.hide()" icon="ui-icon-arrowreturnthick-1-n" title="Retour" value="Retour"/> 
+			                                        </div>
+			                                    </f:facet>
+			                                </h:panelGrid>  
+			
+			                            </p:dialog>  
+			
+			                        </h:form>  
+			                	</p:panel>
+			                </h:panelGrid>
+			            </div>  
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

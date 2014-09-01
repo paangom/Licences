@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:fragment rendered="#{centreBean.etatLicence eq true}">
+    <h:head>
+        <title>Accueil</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="contenu">
+                <div align="center">
+                <h:panelGrid columns="1" cellpadding="5" style="width: 90%">
+                	<p:panel header="LISTE DES UTILISATEURS DU GENERATEUR" style="width:100%">
+                		 <h:form id="formDataTable">
+                		<p:growl id="growl" sticky="true" />
+                    	<div align="left">
+                        <p:commandButton id="btnUserCreate" update=":formCreate" oncomplete="userDialogCreate.show()" icon="ui-icon-plus" title="Ajout d'un nouvel utilisateur"/> 
+                    	</div>
+                   
+                      
+                            
+                            <p:dataTable id="users" var="user" value="#{userBean.users}" style="width: 100%"  paginator="true" rows="10"  
+                                          
+                                         rowsPerPageTemplate="5,10,15">  
+
+								<p:column headerText="Prénoms" style="text-align: center;">  
+                                    <h:outputText value="#{user.userPrenom}" />  
+                                </p:column>  
+
+                                <p:column headerText="Nom" style="text-align: center;">  
+                                    <h:outputText value="#{user.userNom}" />  
+                                </p:column>
+                                
+                                <p:column headerText="Sexe" style="text-align: center;">  
+                                    <h:outputText value="#{user.sexe}" />  
+                                </p:column> 
+                                <p:column headerText="Carte d'identité" style="text-align: center;">  
+                                    <h:outputText value="#{user.cni}" />  
+                                </p:column> 
+                                
+                                <p:column headerText="Téléphone" style="text-align: center;">  
+                                    <h:outputText value="#{user.userNumTel}" />  
+                                </p:column>
+                                
+                                <p:column headerText="E-mail" style="text-align: center;">  
+                                    <h:outputText value="#{user.userMail}" />  
+                                </p:column>   
+
+                                 <p:column style="width:8px; text-align: center;">
+                                        
+                                        <p:commandButton id="btnUpdateUser"  update=":formUpdate" oncomplete="userDialogUpdate.show()" icon="ui-icon-pencil" title="Modifier utilisateur">  
+                                            <f:setPropertyActionListener value="#{user}" target="#{userBean.selectedUser}" />  
+                                        </p:commandButton>
+                                    
+                                </p:column>
+                                
+                                <p:column style="width:8px; text-align: center;">
+                                        
+                                        <p:commandButton id="btnDeleteUser"  update=":formDelete" oncomplete="userDialogDelete.show()" icon="#{user.etat == true ? 'ui-icon-closethick' : 'ui-icon-check'}" title="#{user.etat == true ? 'Désactiver utilisateur' : 'Réactiver utilisateur'}">  
+                                            <f:setPropertyActionListener value="#{user}" target="#{userBean.selectedUser}" />  
+                                        </p:commandButton>
+                                    
+                                </p:column>
+                                
+                                  
+
+                            </p:dataTable>
+                        </h:form>
+ 
+                        <h:form id="formCreate">
+                            <p:dialog header="Ajouter un utilisateur" widgetVar="userDialogCreate" resizable="false" id="userDlgCreate"  
+                                      showEffect="fade" hideEffect="explode" modal="true">  
+
+                                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">   
+
+                                    <h:outputText value="Prénoms : " />  
+                                    <p:inputText value="#{userBean.userToCreate.userPrenom}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="Nom : " />  
+                                    <p:inputText value="#{userBean.userToCreate.userNom}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="Sexe : " />  
+                                    <p:selectOneRadio id="sexe" value="#{userBean.userToCreate.sexe}" required="true">  
+                                            <f:selectItem itemLabel="Masculin " itemValue="Masculin" />  
+                                            <f:selectItem itemLabel="Féminin " itemValue="Féminin" />  
+                                    </p:selectOneRadio>
+                                    
+                                    <h:outputText value="Carte d'identité nationale : " />  
+                                    <p:inputMask value="#{userBean.userToCreate.cni}" mask="9999999999999" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="Téléphone : " />  
+                                    <p:inputMask value="#{userBean.userToCreate.userNumTel}" mask="(+221) 99 999 99 99" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="Adresse : " />  
+                                    <p:inputText value="#{userBean.userToCreate.userAddress}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="E-mail : " />  
+                                    <p:inputText value="#{userBean.userToCreate.userMail}" />
+                                    
+                                    <h:outputText value="Profil : " /> 
+                                    <h:selectOneMenu value="#{userBean.userToCreate.userProfil}" required="true" requiredMessage="Champ obligatoire">
+                                        <f:selectItem itemLabel="Choisir un profil" itemValue=""/>
+                                        <f:selectItem itemLabel="Root" itemValue="root"/>
+                                        <f:selectItem itemLabel="Générateur" itemValue="user"/>
+                                    </h:selectOneMenu> 
+
+                                    <f:facet name="footer">
+                                        <p:separator/>
+                                        <p:commandButton id="btnCreateOK" update=":formDataTable:users, :formDataTable:growl" action="#{userBean.btnCreateUser}" ajax="true" oncomplete="userDialogCreate.hide()" icon="ui-icon-disk" title="Sauvegarder" value="Sauver"/> 
+                                        <p:commandButton id="btnCreateCancel" oncomplete="userDialogCreate.hide()" icon="ui-icon-closethick" title="Annuler" value="Annuler"/> 
+                                    </f:facet>
+                                </h:panelGrid>  
+
+                            </p:dialog>  
+
+                        </h:form>   
+                        <h:form id="formUpdate">
+                            <p:dialog header="Modification de l'utilisateur" widgetVar="userDialogUpdate" resizable="false" id="userDlgUpdate"  
+                                      showEffect="fade" hideEffect="explode" modal="true">  
+
+                                <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                                    <h:outputText value="Prénoms : " />  
+                                    <p:inputText value="#{userBean.selectedUser.userPrenom}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="Nom : " />  
+                                    <p:inputText value="#{userBean.selectedUser.userNom}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    <h:outputText value="Sexe : " />  
+                                    <p:inputText value="#{userBean.selectedUser.sexe}" required="true" requiredMessage="Champ obligatoire"/>
+                                    
+                                    
+                                    
+                                    <h:outputText value="Téléphone : " />  
+                                    <p:inputText value="#{userBean.selectedUser.userNumTel}" requiredMessage="Champ obligatoire" required="true"/>
+                                    
+                                    <h:outputText value="Adresse : " />  
+                                    <p:inputText value="#{userBean.selectedUser.userAddress}" requiredMessage="Champ obligatoire" required="true"/>
+                                    
+                                    <h:outputText value="E-mail : " />  
+                                    <p:inputText value="#{userBean.selectedUser.userMail}" />
+                                    
+                                    <h:outputText value="Pseudo : " />  
+                                    <p:inputText value="#{userBean.selectedUser.userUserName}" required="true" requiredMessage="Champ obligatoire"
+                                    	onmouseover="this.focus();" onkeyup="this.value=this.value.toLowerCase().trim();" validatorMessage="Le login doit moins 6 caractères">
+                                    	<f:validateLength minimum="6" />
+                                    </p:inputText>  
+
+                                    <h:outputLabel for="pwd1" value="Nouveau mot de passe: *" />  
+            						<p:password id="pwd1" onmouseover="this.focus();" onkeyup="this.value=this.value.trim();" value="#{userBean.selectedUser.userPassword}" match="pwd2" label="Nouveau mot de passe" required="true" validatorMessage="Le mot de passe doit contenir moins 6 caractères qui doivent être: en majuscules, miniscules et caractères spéciaux.">
+            							<f:validateLength minimum="6" />
+            						</p:password>  
+            						
+            						<h:outputLabel for="pwd2" value="Retaper le nouveau mot de passe: *" />  
+            						<p:password id="pwd2" onmouseover="this.focus();" onkeyup="this.value=this.value.trim();" value="#{userBean.selectedUser.userPassword}" label="Retaper le nouveau mot de passe" required="true" /> 
+
+                                    <h:outputText value="Profil : " /> 
+                                    <h:selectOneMenu value="#{userBean.selectedUser.userProfil}" requiredMessage="Champ obligatoire" required="true">
+                                        <f:selectItem itemLabel="Officier" itemValue="officier"/>
+                                        <f:selectItem itemLabel="Agent" itemValue="agent"/>
+                                        <f:selectItem itemLabel="Super utilisateur" itemValue="root"/>
+                                    </h:selectOneMenu>  
+
+                                    <f:facet name="footer">
+                                        <p:separator/>
+                                        <p:commandButton id="btnUpdateeOK" update=":formDataTable:users, :formDataTable:growl" action="#{userBean.btnUpdateUser}" oncomplete="userDialogUpdate.hide()" icon="ui-icon-disk" title="Sauvegarder" value="Sauver"/> 
+                                        <p:commandButton id="btnUpdateCancel" oncomplete="userDialogUpdate.hide()" icon="ui-icon-closethick" title="Annuler" value="Annuler"/> 
+                                    </f:facet>
+                                </h:panelGrid>  
+
+                            </p:dialog>  
+
+                        </h:form>  
+
+                        <h:form id="formDelete">
+
+                            <p:confirmDialog id="confirmDialog" message="Etes-vous sûr d'effectuer cet opération?"
+                                             header="Désactivation/Réactivation" severity="alert" widgetVar="userDialogDelete" showEffect="fade" hideEffect="explode" >  
+
+
+                                <p:commandButton value="Oui" id="confirm" icon="ui-icon-check" 
+                                                 oncomplete="userDialogDelete.hide()" update=":formDataTable:users, :formDataTable:growl" action="#{userBean.btnDeleteUser}" />  
+                                <p:commandButton value="Non" id="cancel" icon="ui-icon-close" onclick="userDialogDelete.hide()" type="button" />       
+                            </p:confirmDialog> 
+                        </h:form>
+                	</p:panel>
+                </h:panelGrid>
+                 </div>
+                 </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</ui:fragment>
+		
+<ui:fragment rendered="#{centreBean.etatLicence eq false}">
+		
+			<h:head>
+        <title>Activation</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+        
+    </h:head>
+
+    <body>
+		<div class="breadcrumb" style="width:600px" />
+       	<h1 align="center">ACTIVATION DE L'APPLICATION ETAT CIVIL SERVICE</h1>
+        	<div class="panContent" align="center">
+            	<h:form id="formActive"> 
+                	<p:growl id="growlA" sticky="true"/>
+					<h:panelGrid columns="1" style="width: 90%;">
+                    	<p:fieldset legend="CODE SECRET">
+                        	<div align="center">
+                            	<h:panelGrid columns="2"  style="width: 95%;"> 
+                                	<p:inputText id="code" value="#{centreBean.code}" required="true" requiredMessage="Veuillez saisir votre code d'activation" label="Code" placeholder="Veuillez saisir le code d'activation." style="width: 90%;"/>
+                                	<p:commandButton value="Activer" update="growlA" action="#{centreBean.activation}" />
+                                </h:panelGrid>
+                            </div>
+                        </p:fieldset>
+                    </h:panelGrid>
+                </h:form>
+             </div>
+         </body>  
+</ui:fragment>
+</html>

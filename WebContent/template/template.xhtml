@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    	
+		<link type="text/css"
+		href="#{request.contextPath}/resources/css/login.css" rel="stylesheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <f:metadata>
+            <p:idleMonitor timeout="#{session.maxInactiveInterval * 1000 - 125000}">
+            	<f:event listener="#{loginBean.verifyUseLogin}" type="preRenderView" />
+            </p:idleMonitor>
+        </f:metadata>
+    </h:head>
+	
+    <h:body  style="width:1100px;">
+
+        <div id="top" class="ui-widget ui-widget-header ui-corner-all" style="height:150px;">
+            <ui:insert name="top">
+                <div align="left" >
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                
+                <div class="profil" align="right" >
+                 
+                    
+                </div>
+            </ui:insert>
+        </div>
+        <div id="page" style="width:1100px">
+            <div id="left" style="width:200px">
+
+               <br />
+                <h:form>
+                    <p:growl id="growl" life="2000" />
+ 
+				    <p:commandLink id="ajax" update="growl" action="#{generateur.createCentre}">
+				        <h:outputText value="Gestion des Centres" />
+				    </p:commandLink>
+				    <br/>
+				    <br/>
+				    <p:commandLink id="ajax1" update="growl" action="#{generateur.createCode}">
+				        <h:outputText value="Génération Licence" />
+				    </p:commandLink>
+				    
+				    <br/><br/>
+				    <p:commandLink id="ajax2" update="growl" action="#{generateur.createUsers}">
+				        <h:outputText value="Gestion Utilisateurs" />
+				    </p:commandLink>
+                </h:form>
+                     
+                    				
+                
+                
+
+            </div>
+            <div>
+            	
+            </div>
+            <div id="content" class="left_content ui-widget" style="width:870px">
+                <ui:insert name="content">Content</ui:insert>
+                
+            </div>
+            
+            
+            <div id="bottom" class="ui-widget ui-widget-header ui-corner-all" style="align:bottom">
+			        
+			            
+			            
+					                <div class="footer">
+					                    ECS &copy;2014 - Conçue par <a href="http://www.syscoweb.com">SYSCOWEB</a><br />
+					                    Adresse: Cité Fadia - Villa N°217 <br /> Tel: +221 33 835 24 25<br /> Cell:+221 77 422 45 77
+					                </div>
+					            
+			</div>
+        </div>
+        
+        
+        
+    </h:body>
+
+</html>

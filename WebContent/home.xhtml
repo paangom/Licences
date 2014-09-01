@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    	<link rel="shortcut icon" href="/home.png" type="image/x-icon"/>
+		<link rel="icon" href="/home.png" type="image/x-icon"/>
+        <title>Accueil</title>
+        <link href="http://localhost:8080/cec/resources/css/appCSS.css" type="text/css" rel="stylesheet"/>
+    </h:head>
+
+    <body>
+
+        <ui:composition template="./template/template.xhtml">
+
+            <ui:define name="content">
+                <div class="contenu">
+                       
+                        <br />
+                    
+                    <div class="contenu">
+                        <h:form id="papa" prependId="false">
+                        	<div align="center">
+                        	<p:fieldset legend="GENERATEUR DE CODE D'ACTIVATION DES CENTRES D'ETAT CIVIL">
+                            <h:panelGrid columns="1" cellpadding="5" style="width: 100%;">
+                            <p:fieldset legend="Centre Etat-Civil">
+                                <div align="center">
+                                    <h:panelGrid columns="1" cellpadding="6" style="width: 80%;"> 
+                                    <div align="center">
+                                        <p:selectOneMenu  id="centre" value="#{generateur.code}" style="margin-left:40%;" effect="drop" required="true" immediate="true" requiredMessage="Choisir le centre" label="Center">
+    										<f:selectItem itemLabel="Choisir un centre " itemValue=""></f:selectItem>
+    										<f:selectItems value="#{generateur.centre}" var="items" itemLabel="#{items.centerName}" itemValue="#{items.centerCode}"></f:selectItems>
+           								</p:selectOneMenu> 
+           							</div>  
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                            
+                            <p:fieldset legend="Date début de validité">
+                                <div align="center">
+                                    <h:panelGrid columns="1" cellpadding="6" style="width: 80%;"> 
+                                    <div align="center">
+                                        <p:calendar effect="fadeIn" style="margin-left:40%;" navigator="true" placeholder="Date de début de validité" title="Date de début de validité de la licence" required="true" value="#{generateur.datDeb}"  widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+                                    </div>
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                            
+                            <p:fieldset legend="Date fin de validité">
+                                <div align="center">
+                                    <h:panelGrid columns="1" cellpadding="6" style="width: 80%;"> 
+                                    <div align="center">
+                                        <p:calendar effect="fadeIn" style="margin-left:40%;" navigator="true" placeholder="Date de fin de validité" title="Date de fin de validité de la licence" required="true" value="#{generateur.dateFin}" widgetVar="calwidget" pattern="dd/MM/yyyy" showButtonPanel="true"/>
+                                    </div>
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="1" cellspacing="5">
+                            <p:commandButton value="Générer le code" update="messages" actionListener="#{generateur.generer}"/>
+                        </h:panelGrid>
+                        </p:fieldset>
+                        </div>
+                       
+                        <br/><br/>
+                        <br/><br/>
+                        <br/><br/>
+                        
+                        <div align="center">
+                        	<p:fieldset legend="CODE D'ACTIVATION GENEREE">
+                            <h:panelGrid id="center" columns="1" style="width: 100%;">
+                            <p:fieldset legend="Clé d'activation">
+                                <div align="center">
+                                    <h:panelGrid columns="1"  style="width: 100%;"> 
+                                        <p:messages id="messages" autoUpdate="true" />   
+                                    </h:panelGrid>
+                                </div>
+                            </p:fieldset>
+                            </h:panelGrid>
+                            </p:fieldset>
+                         </div>
+                       </h:form>      
+                        
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
